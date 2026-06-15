@@ -6,7 +6,7 @@ A fully automated employee attendance management system built with **n8n** that 
 
 ## 📸 Workflow Preview
 
-![n8n Workflow](./workflow-preview.png)
+![n8n Workflow](./n8n-workflow.png)
 
 ---
 
