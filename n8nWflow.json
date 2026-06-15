@@ -1,0 +1,1153 @@
+{
+  "name": "n8nWflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Visitor Gate Pass Entry",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Action",
+              "fieldType": "dropdown",
+              "fieldName": "action",
+              "defaultValue": "Check-In",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Check-In"
+                  },
+                  {
+                    "option": "Check-Out"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "EP Number",
+              "fieldName": "ep_number",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -672,
+        96
+      ],
+      "id": "4fa9e06d-6597-45a2-94c6-0fdd48674993",
+      "name": "On form submission",
+      "webhookId": "59c71af2-bf5a-4f77-9f23-481ba2abec44"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Kf85xzmf1xwcecTO_kqFAWxtRiEIg-LuNrixJnWOICA",
+          "mode": "list",
+          "cachedResultName": "n8n_new",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Kf85xzmf1xwcecTO_kqFAWxtRiEIg-LuNrixJnWOICA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sKzXA_Hb4hqPdKB50By0JI52jCak1xo280eeaA9TnTU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "EP_Number",
+              "lookupValue": "={{ $json.ep_number }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -448,
+        96
+      ],
+      "id": "aae86471-d45c-4fb6-8128-c782173b9531",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "C1sprXFmcvXCbxtK",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Kf85xzmf1xwcecTO_kqFAWxtRiEIg-LuNrixJnWOICA",
+          "mode": "list",
+          "cachedResultName": "n8n_new",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Kf85xzmf1xwcecTO_kqFAWxtRiEIg-LuNrixJnWOICA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sKzXA_Hb4hqPdKB50By0JI52jCak1xo280eeaA9TnTU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "EP_Number": "={{ $(\"On form submission\").item.json.ep_number }}",
+            "Status": "Checked-In",
+            "Checkin_Time": "={{ $(\"Code in JavaScript\").item.json.currentTime }}"
+          },
+          "matchingColumns": [
+            "EP_Number"
+          ],
+          "schema": [
+            {
+              "id": "Visitor_Name",
+              "displayName": "Visitor_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EP_Number",
+              "displayName": "EP_Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Manager_Email",
+              "displayName": "Manager_Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Aadhaar_Last4",
+              "displayName": "Aadhaar_Last4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mobile",
+              "displayName": "Mobile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Checkin_Time",
+              "displayName": "Checkin_Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Scheduled_Time",
+              "displayName": "Scheduled_Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1792,
+        480
+      ],
+      "id": "b3448237-975d-4b8f-9d00-0dceb35a5ff7",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "C1sprXFmcvXCbxtK",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get current IST time parts\nconst options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false };\nconst formatter = new Intl.DateTimeFormat('en-GB', options);\nconst parts = formatter.formatToParts(new Date());\nconst curH = parseInt(parts.find(p => p.type === 'hour').value);\nconst curM = parseInt(parts.find(p => p.type === 'minute').value);\nconst arrivalMins = (curH * 60) + curM; // e.g. 23:43 = 1423\n\n// 2. Get Scheduled Time from Sheet (Handles \"0:00\", \"9:00\", \"09:00\")\nlet schedStr = $node[\"Get row(s) in sheet\"].json[\"Scheduled_Time\"];\nconst schedParts = schedStr.split(':');\nconst schedH = parseInt(schedParts[0]);\nconst schedM = parseInt(schedParts[1] || 0);\nlet schedMins = (schedH * 60) + schedM; // e.g. 0:00 = 0\n\n// 3. MIDNIGHT WRAP-AROUND LOGIC\n// If arrival is late at night (e.g. 23:43) and schedule is midnight (0:00)\n// We treat midnight as 1440 for the comparison calculation\nlet logicSchedMins = schedMins;\nif (arrivalMins > 1300 && schedMins < 100) {\n    logicSchedMins = schedMins + 1440;\n}\n\n// 4. Calculate if within the 60-minute \"On-Time\" window\n// Condition: Must arrive between (Scheduled - 60 mins) and (Scheduled)\nconst windowStart = logicSchedMins - 60;\n\nlet arrival_status = \"LATE ENTRY\";\nlet alert_emoji = \"🔴\";\n\nif (arrivalMins >= windowStart && arrivalMins <= logicSchedMins) {\n    arrival_status = \"ON TIME\";\n    alert_emoji = \"🟢\";\n} else {\n    arrival_status = \"LATE ENTRY\";\n    alert_emoji = \"🔴\";\n}\n\nconst displayTime = curH.toString().padStart(2, '0') + \":\" + curM.toString().padStart(2, '0');\n\nreturn {\n  currentTime: displayTime,\n  status: arrival_status,\n  colorCode: alert_emoji,\n  scheduledTime: schedStr\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        480
+      ],
+      "id": "edc2e691-df21-4505-87f2-e41eb55472fb",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $(\"Get row(s) in sheet\").item.json.Email }}",
+        "subject": "Your Gate Pass Verification Code - Action Required",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333;\"><div style=\"max-width: 600px; margin: 0 auto; padding: 20px;\"><h2 style=\"color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;\">Gate Pass Verification</h2><p>Hello,</p><p>Your verification code for gate entry is:</p><div style=\"background-color: #f0f0f0; padding: 20px; text-align: center; margin: 20px 0; border-radius: 5px;\"><h1 style=\"font-size: 36px; letter-spacing: 8px; margin: 0; color: #2c3e50;\">{{ $(\"Generate Fresh OTP\").item.json.Active_OTP }}</h1></div><div style=\"background-color: #e8f4f8; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0;\"><p style=\"margin: 5px 0;\"><strong>Visitor:</strong> {{ $(\"Get row(s) in sheet\").item.json.Visitor_Name }}</p><p style=\"margin: 5px 0;\"><strong>EP Number:</strong> {{ $(\"Get row(s) in sheet\").item.json.EP_Number }}</p></div><p>Please enter this code in the verification form to complete your check-in.</p><p style=\"color: #e74c3c; font-size: 14px; margin-top: 20px;\"><strong>⚠️ Important:</strong> This code is valid for this session only. Do not share this code with anyone.</p><hr style=\"border: none; border-top: 1px solid #ddd; margin: 20px 0;\"><p style=\"color: #7f8c8d; font-size: 12px;\">This is an automated message from the Gate Pass System. Please do not reply to this email.</p></div></body></html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        384
+      ],
+      "id": "87170390-79b1-407d-8e1a-a33a4c342150",
+      "name": "Send a message",
+      "webhookId": "9693b21c-3856-4ae4-8b8a-78ffa5fd537b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "FFah1GLEAfoLmj1B",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "OTP Code",
+              "fieldName": "otp_code",
+              "placeholder": "Enter 6-digit code",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "formTitle": "Enter Verification Code",
+          "formDescription": "Please check your email for the OTP code and enter it below to complete check-in.",
+          "buttonLabel": "Verify & Check In"
+        }
+      },
+      "id": "43792313-c356-40b6-af74-46327e3362e2",
+      "name": "Enter OTP Code",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        896,
+        384
+      ],
+      "webhookId": "4e063433-599e-4811-b57f-bcedf12dbb57"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "id-1",
+              "leftValue": "={{ $(\"Enter OTP Code\").item.json.otp_code }}",
+              "rightValue": "={{ $(\"Update OTP in Sheet\").item.json.Active_OTP }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "id": "1405cf58-5ece-4405-a22c-53f31e0a169d",
+      "name": "Verify OTP",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1120,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const otp = Math.floor(100000 + Math.random() * 900000).toString();\nreturn { Active_OTP: otp };"
+      },
+      "id": "2b0d0540-5b20-4473-bfdf-1fe70cd5cedf",
+      "name": "Generate Fresh OTP",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Kf85xzmf1xwcecTO_kqFAWxtRiEIg-LuNrixJnWOICA",
+          "mode": "list",
+          "cachedResultName": "n8n_new",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Kf85xzmf1xwcecTO_kqFAWxtRiEIg-LuNrixJnWOICA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sKzXA_Hb4hqPdKB50By0JI52jCak1xo280eeaA9TnTU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "EP_Number": "={{ $(\"On form submission\").item.json.ep_number }}",
+            "Active_OTP": "={{ $(\"Generate Fresh OTP\").item.json.Active_OTP }}"
+          },
+          "matchingColumns": [
+            "EP_Number"
+          ],
+          "schema": [
+            {
+              "id": "Visitor_Name",
+              "displayName": "Visitor_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EP_Number",
+              "displayName": "EP_Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Manager_Email",
+              "displayName": "Manager_Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Aadhaar_Last4",
+              "displayName": "Aadhaar_Last4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mobile",
+              "displayName": "Mobile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Checkin_Time",
+              "displayName": "Checkin_Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Scheduled_Time",
+              "displayName": "Scheduled_Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Active_OTP",
+              "displayName": "Active_OTP",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ca4769e7-1823-491a-83b2-b3d07683dc59",
+      "name": "Update OTP in Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        384
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "C1sprXFmcvXCbxtK",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Verification Failed",
+        "completionMessage": "The OTP code you entered was incorrect. The check-in process has been terminated for security reasons. Please contact security if you need assistance.",
+        "options": {
+          "formTitle": "Verification Failed"
+        }
+      },
+      "id": "d8c245b0-e7d2-4824-b081-62898eaf4a11",
+      "name": "OTP Verification Failed - Process Terminated",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        1344,
+        288
+      ],
+      "webhookId": "5ed9899a-134a-4e16-a6f5-0e4fdb6d9612"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Check-In Successful!",
+        "completionMessage": "Your check-in has been completed successfully. Thank you!",
+        "options": {}
+      },
+      "id": "d749d032-a536-40d8-aa26-aba6fe4db58c",
+      "name": "Check-In Successful",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        2016,
+        480
+      ],
+      "webhookId": "a5dd7bc1-10ba-4ebf-ac1d-a1a15b8c042d"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $('Get row(s) in sheet').item.json.EP_Number }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "16fde0ad-02f9-4e7d-aac0-2095e4e5c163",
+      "name": "Check EP Exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $(\"On form submission\").item.json.action }}",
+              "rightValue": "Check-In",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "26bf9794-4f2c-44a0-a4d6-ec78b8ee445a",
+      "name": "Check Action Type",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $(\"Get row(s) in sheet\").item.json.Status }}",
+              "rightValue": "Checked-In",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "36f89b6b-3d1e-45fd-bbe5-2fe9a5affb3f",
+      "name": "Verify EP for Checkout",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Kf85xzmf1xwcecTO_kqFAWxtRiEIg-LuNrixJnWOICA",
+          "mode": "list",
+          "cachedResultName": "n8n_new",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Kf85xzmf1xwcecTO_kqFAWxtRiEIg-LuNrixJnWOICA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sKzXA_Hb4hqPdKB50By0JI52jCak1xo280eeaA9TnTU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "EP_Number": "={{ $(\"On form submission\").item.json.ep_number }}",
+            "Status": "Checked-Out"
+          },
+          "matchingColumns": [
+            "EP_Number"
+          ],
+          "schema": [
+            {
+              "id": "Visitor_Name",
+              "displayName": "Visitor_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EP_Number",
+              "displayName": "EP_Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Manager_Email",
+              "displayName": "Manager_Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Aadhaar_Last4",
+              "displayName": "Aadhaar_Last4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mobile",
+              "displayName": "Mobile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Checkin_Time",
+              "displayName": "Checkin_Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "0ca2164e-a2ef-46f7-9f85-7bb21b99f5e9",
+      "name": "Clear Check-In Data",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        192
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "C1sprXFmcvXCbxtK",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Check-Out Successful!",
+        "completionMessage": "Your check-out has been completed successfully. Thank you for visiting!",
+        "options": {}
+      },
+      "id": "acc7aba4-e606-4795-9165-e1fa8a7fbdb2",
+      "name": "Check-Out Successful",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        896,
+        192
+      ],
+      "webhookId": "ea14bcc5-4548-49dc-8e2e-a21b7af958aa"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Check-Out Failed",
+        "completionMessage": "You cannot check-out because you are not currently checked-in. Please contact security if you need assistance.",
+        "options": {}
+      },
+      "id": "8a86926c-2a61-4151-a8db-c5fd5a04729c",
+      "name": "Check-Out Error",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        448,
+        0
+      ],
+      "webhookId": "7ce8afdc-7969-44da-b020-ee55f00bd207"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $(\"Get row(s) in sheet\").item.json.Email }}",
+        "subject": "=Check-In Successful - {{ $(\"Code in JavaScript\").item.json.status }}",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333;\"><div style=\"max-width: 600px; margin: 0 auto; padding: 20px;\"><h2 style=\"color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;\">{{ $(\"Code in JavaScript\").item.json.colorCode }} Check-In Successful</h2><div style=\"background-color: #e8f4f8; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0;\"><p style=\"margin: 5px 0;\"><strong>Visitor:</strong> {{ $(\"Get row(s) in sheet\").item.json.Visitor_Name }}</p><p style=\"margin: 5px 0;\"><strong>EP Number:</strong> {{ $(\"Get row(s) in sheet\").item.json.EP_Number }}</p><p style=\"margin: 5px 0;\"><strong>Mobile:</strong> {{ $(\"Get row(s) in sheet\").item.json.Mobile }}</p><p style=\"margin: 5px 0;\"><strong>Scheduled Time:</strong> {{ $(\"Code in JavaScript\").item.json.scheduledTime }}</p><p style=\"margin: 5px 0;\"><strong>Arrival Time:</strong> {{ $(\"Code in JavaScript\").item.json.currentTime }}</p><p style=\"margin: 5px 0;\"><strong>Status:</strong> {{ $(\"Code in JavaScript\").item.json.status }}</p></div><p>Your check-in has been completed successfully.</p><hr style=\"border: none; border-top: 1px solid #ddd; margin: 20px 0;\"><p style=\"color: #7f8c8d; font-size: 12px;\">This is an automated message from the Gate Pass System.</p></div></body></html>",
+        "options": {}
+      },
+      "id": "7a86f033-53ed-47e7-af56-1f2fc6768026",
+      "name": "Send Check-In Confirmation",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1568,
+        480
+      ],
+      "webhookId": "3396693a-2c43-4fc9-9697-9e69f0b94a76",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "FFah1GLEAfoLmj1B",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $(\"Get row(s) in sheet\").item.json.Email }}",
+        "subject": "OTP Verification Failed - Security Alert",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333;\"><div style=\"max-width: 600px; margin: 0 auto; padding: 20px;\"><h2 style=\"color: #e74c3c; border-bottom: 2px solid #e74c3c; padding-bottom: 10px;\">🚨 OTP Verification Failed</h2><div style=\"background-color: #ffe8e8; padding: 15px; border-left: 4px solid #e74c3c; margin: 20px 0;\"><p style=\"margin: 5px 0;\"><strong>Visitor:</strong> {{ $(\"Get row(s) in sheet\").item.json.Visitor_Name }}</p><p style=\"margin: 5px 0;\"><strong>EP Number:</strong> {{ $(\"Get row(s) in sheet\").item.json.EP_Number }}</p><p style=\"margin: 5px 0;\"><strong>Email:</strong> {{ $(\"Get row(s) in sheet\").item.json.Email }}</p></div><p style=\"color: #e74c3c;\"><strong>⚠️ Security Alert:</strong> An incorrect OTP code was entered for your check-in attempt.</p><p>If this was not you, please contact security immediately.</p><hr style=\"border: none; border-top: 1px solid #ddd; margin: 20px 0;\"><p style=\"color: #7f8c8d; font-size: 12px;\">This is an automated security alert from the Gate Pass System.</p></div></body></html>",
+        "options": {}
+      },
+      "id": "a25c493d-c0ba-4282-875a-cdeb0a01cd2d",
+      "name": "OTP Failed Alert",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1568,
+        288
+      ],
+      "webhookId": "eecf440b-b1ad-4608-9f71-ed26c09abd05",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "FFah1GLEAfoLmj1B",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $(\"Get row(s) in sheet\").item.json.Email }}",
+        "subject": "Check-Out Successful",
+        "message": "=<html><body style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333;\"><div style=\"max-width: 600px; margin: 0 auto; padding: 20px;\"><h2 style=\"color: #27ae60; border-bottom: 2px solid #27ae60; padding-bottom: 10px;\">✅ Check-Out Successful</h2><div style=\"background-color: #e8f8f5; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0;\"><p style=\"margin: 5px 0;\"><strong>Visitor:</strong> {{ $(\"Get row(s) in sheet\").item.json.Visitor_Name }}</p><p style=\"margin: 5px 0;\"><strong>EP Number:</strong> {{ $(\"Get row(s) in sheet\").item.json.EP_Number }}</p><p style=\"margin: 5px 0;\"><strong>Mobile:</strong> {{ $(\"Get row(s) in sheet\").item.json.Mobile }}</p><p style=\"margin: 5px 0;\"><strong>Check-In Time:</strong> {{ $(\"Get row(s) in sheet\").item.json.Checkin_Time }}</p><p style=\"margin: 5px 0;\"><strong>Check-Out Time:</strong> {{ $now.toFormat(\"HH:mm\") }}</p></div><p>Your check-out has been completed successfully. Thank you for visiting!</p><hr style=\"border: none; border-top: 1px solid #ddd; margin: 20px 0;\"><p style=\"color: #7f8c8d; font-size: 12px;\">This is an automated message from the Gate Pass System.</p></div></body></html>",
+        "options": {}
+      },
+      "id": "13e861d5-720e-4269-b4e7-1737498bae42",
+      "name": "Checkout Confirmation Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        192
+      ],
+      "webhookId": "31ef19e9-855e-46b6-adda-eeaffdf765af",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "FFah1GLEAfoLmj1B",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Invalid EP Number",
+        "completionMessage": "The EP number you entered is not found in our system. Please contact security for assistance.",
+        "options": {}
+      },
+      "id": "b49675d4-e1e5-45c2-93e5-350da51d4710",
+      "name": "Invalid EP Form",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "e96ca69f-942b-4f37-b890-936daa76391b"
+    },
+    {
+      "parameters": {
+        "chatId": "1714247300",
+        "text": "={{ $node[\"Code in JavaScript\"].json[\"colorCode\"] }} NEW VISITOR ARRIVED ({{ $node[\"Code in JavaScript\"].json[\"status\"] }}) {{ $node[\"Code in JavaScript\"].json[\"colorCode\"] }}\n\n👤 Visitor: {{ $node[\"Get row(s) in sheet\"].json[\"Visitor_Name\"] }}\n🔑 EP ID: {{ $node[\"Get row(s) in sheet\"].json[\"EP_Number\"] }}\n📞 Mobile: {{ $node[\"Get row(s) in sheet\"].json[\"Mobile\"] }}\n🏢 Manager: {{ $node[\"Get row(s) in sheet\"].json[\"Manager_Email\"] }}\n\n⏰ Scheduled Time: {{ $node[\"Code in JavaScript\"].json[\"scheduledTime\"] }}\n🕒 Arrival Time: {{ $node[\"Code in JavaScript\"].json[\"currentTime\"] }}\n\n⚠️ Security: Please verify physical Aadhaar. Status is marked as {{ $node[\"Code in JavaScript\"].json[\"status\"] }}.\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2224,
+        480
+      ],
+      "id": "c0d23f09-fa6f-4d0d-8123-28f036a1f5cf",
+      "name": "Send a text message",
+      "webhookId": "b7877905-e288-40f4-a558-b5b8f6d85b60",
+      "credentials": {
+        "telegramApi": {
+          "id": "OxJSRId9nuoYToI4",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1714247300",
+        "text": "=🚨 OTP VERIFICATION FAILED 🚨\n\n❌ Invalid OTP entered for:\n\n👤 Visitor: {{ $('Get row(s) in sheet').item.json.Visitor_Name }}\n🔑 EP ID: {{ $('Get row(s) in sheet').item.json.EP_Number }}\n📧 Email: {{ $('Get row(s) in sheet').item.json.Email }}\n\n⚠️ Security Alert: Someone attempted to verify with incorrect OTP code.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1776,
+        288
+      ],
+      "id": "aaa27343-e88b-48a2-90ad-54ccfb226502",
+      "name": "Send a text message1",
+      "webhookId": "10ec4d85-c706-4466-8f32-39be9c0e6858",
+      "credentials": {
+        "telegramApi": {
+          "id": "OxJSRId9nuoYToI4",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1714247300",
+        "text": "=Checked Out Successful for  {{ $('Get row(s) in sheet').item.json.Visitor_Name }}\n\nEP Number {{ $('Get row(s) in sheet').item.json.EP_Number }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1104,
+        192
+      ],
+      "id": "77b5e35f-724f-4b32-8fa8-f58d8482b899",
+      "name": "Send a text message2",
+      "webhookId": "d5e074b6-8410-40aa-8a66-ec6b9b57c0c8",
+      "credentials": {
+        "telegramApi": {
+          "id": "OxJSRId9nuoYToI4",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Check EP Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send Check-In Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Enter OTP Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enter OTP Code": {
+      "main": [
+        [
+          {
+            "node": "Verify OTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify OTP": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OTP Verification Failed - Process Terminated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Fresh OTP": {
+      "main": [
+        [
+          {
+            "node": "Update OTP in Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update OTP in Sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Check-In Successful",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OTP Verification Failed - Process Terminated": {
+      "main": [
+        [
+          {
+            "node": "OTP Failed Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check EP Exists": {
+      "main": [
+        [
+          {
+            "node": "Check Action Type",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Invalid EP Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Action Type": {
+      "main": [
+        [
+          {
+            "node": "Generate Fresh OTP",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Verify EP for Checkout",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify EP for Checkout": {
+      "main": [
+        [
+          {
+            "node": "Clear Check-In Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check-Out Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear Check-In Data": {
+      "main": [
+        [
+          {
+            "node": "Checkout Confirmation Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Check-In Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Checkout Confirmation Email": {
+      "main": [
+        [
+          {
+            "node": "Check-Out Successful",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check-In Successful": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OTP Failed Alert": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check-Out Successful": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "511c582f-fcf6-47a3-a669-280a96e15e2b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6fe23b3f98cf53e8b4693d0042a249a5a0f56b5fd36a406f16e3c4f98c95df2e"
+  },
+  "nodeGroups": [],
+  "id": "wxNbdTx56ggvOgyG",
+  "tags": []
+}
