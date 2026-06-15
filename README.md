@@ -75,7 +75,7 @@ Form Submission
 
 Your employee sheet should have the following columns:
 
-| EmpID | Name | Email | CheckIn | CheckOut | OTP |
+| EmpID | Name | Email | CheckIn | Status | OTP |
 |-------|------|-------|---------|----------|-----|
 | E001 | John Doe | john@example.com | | | |
 
